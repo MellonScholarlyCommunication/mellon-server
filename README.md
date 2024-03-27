@@ -18,7 +18,8 @@ start_server({
     port: 8000,
     public: './public'
     registry: [
-       { path: 'demo' , do: doDemo }
+       { path: 'demo' , do: doDemo },
+       { path: 'test/.*', do: './hander/demo.js'}
     ]
 });
 

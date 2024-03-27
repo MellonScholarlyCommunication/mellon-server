@@ -60,12 +60,28 @@ const requestListener = function (req, res) {
 }
 
 function registryEntry(pathItem) {
-    for (let i = 0 ; i < registry.length ; i++) {
-        let regex = new RegExp('^' + registry[i]['path']);
-       
-        if (regex.test(pathItem)) {
-            return registry[i]['do'];
+    try {
+        for (let i = 0 ; i < registry.length ; i++) {
+            let regex = new RegExp('^' + registry[i]['path']);
+        
+            if (regex.test(pathItem)) {
+                const entry = registry[i]['do'];
+
+                if (typeof entry === 'function') {
+                    return entry;
+                }
+                else {
+                    logger.info(`loading entry ${entry}`);
+                    delete require.cache[entry];
+                    const func = require(entry).handle;
+                    registry[i]['do'] = func;
+                    return func;
+                }
+            }
         }
+    }
+    catch (e) {
+        logger.error(e);
     }
 
     return null;

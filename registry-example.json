@@ -1,0 +1,3 @@
+[
+    { "path": "demo/.*" , "do": "./handler/demo.js" }
+]
