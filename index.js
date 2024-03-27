@@ -4,7 +4,7 @@ const fs = require('fs');
 let host = 'localhost';
 let port = 8000;
 let public_dir = './public';
-let registry = {} ;
+let registry = [] ;
 
 const log4js = require('log4js');
 const logger = log4js.getLogger();
@@ -21,8 +21,10 @@ log4js.configure({
 const requestListener = function (req, res) {
     const pathItem = req.url.substring(1);
     try {
-        if (registry[pathItem]) {
-            registry[pathItem](req,res);
+        const reg = registryEntry(pathItem);
+
+        if (reg) {
+            reg(req,res);
             logger.info(`${req.method} ${req.url} [${res.statusCode}] 0`);
             return;
         }
@@ -55,6 +57,18 @@ const requestListener = function (req, res) {
         res.end(e.message);
         logger.info(`${req.method} ${req.url} [500] 0`);
     }
+}
+
+function registryEntry(pathItem) {
+    for (let i = 0 ; i < registry.length ; i++) {
+        let regex = new RegExp('^' + registry[i]['path']);
+       
+        if (regex.test(pathItem)) {
+            return registry[i]['do'];
+        }
+    }
+
+    return null;
 }
 
 function doFile(path,req,res) {

@@ -5,21 +5,21 @@ A small experimental hackable HTTP server.
 ## Install
 
 ```
-npm install pico-server
+npm install mellon-server
 ```
 
 ## Example
 
 ```
-const { start_server } = require('../index.js');
+const { start_server } = require('mellon-server');
 
 start_server({
     host: 'localhost',
     port: 8000,
     public: './public'
-    registry: {
-        'demo': doDemo
-    }
+    registry: [
+       { path: 'demo' , do: doDemo }
+    ]
 });
 
 function doDemo(req,res) {

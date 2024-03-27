@@ -11,4 +11,11 @@ program.parse();
 
 const options = program.opts();
 
+//options['registry'] = [
+//  { path: 'inbox/.*' , do: function(req,res) {
+//      res.writeHead(200);
+//      res.end('ok');
+//  }}
+//];
+
 start_server(options);
