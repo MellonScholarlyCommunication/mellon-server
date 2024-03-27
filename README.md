@@ -1,4 +1,4 @@
-# pico-server
+# mellon-server
 
 A small experimental hackable HTTP server.
 
