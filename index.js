@@ -115,4 +115,4 @@ function start_server(options) {
     });
 }
 
-module.exports = { start_server };
+module.exports = { start_server , doFile , doDir };
