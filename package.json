@@ -1,12 +1,12 @@
 {
-  "name": "pico-server",
+  "name": "mellon-server",
   "version": "1.0.0",
   "description": "A small hackable HTTP server",
   "main": "index.js",
-  "repository": "https://github.com/MellonScholarlyCommunication/pico-server",
+  "repository": "https://github.com/MellonScholarlyCommunication/mellon-server",
   "author": "Patrick Hochstenbach <Patrick.Hochstenbach@UGent.be>",
   "license": "MIT",
-  "bin": "./bin/pico-server.js",
+  "bin": "./bin/mellon-server.js",
   "dependencies": {
     "commander": "^12.0.0",
     "http": "^0.0.1-security",
