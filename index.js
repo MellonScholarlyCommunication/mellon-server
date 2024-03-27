@@ -59,7 +59,7 @@ const requestListener = function (req, res) {
 
 function doFile(path,req,res) {
     const content = fs.readFileSync(path, { encoding: 'utf-8'});
-    if (fs.existsSync(`${path}}.meta`)) {
+    if (fs.existsSync(`${path}.meta`)) {
         const headers = JSON.parse(fs.readFileSync(`${path}.meta`, { encoding : 'utf-8'}));
         Object.keys(headers).forEach( (key) => {
             res.setHeader(key, headers[key]);
