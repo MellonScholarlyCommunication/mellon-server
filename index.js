@@ -20,12 +20,14 @@ log4js.configure({
 
 const requestListener = function (req, res) {
     const pathItem = req.url.substring(1);
+    const address = req.socket.address()['address'];
+
     try {
         const reg = registryEntry(pathItem);
 
         if (reg) {
             reg(req,res);
-            logger.info(`${req.method} ${req.url} [${res.statusCode}] 0`);
+            logger.info(`${address} - ${req.method} ${req.url} [${res.statusCode}] 0`);
             return;
         }
         else {
@@ -34,7 +36,7 @@ const requestListener = function (req, res) {
             if (!exists) {
                 res.writeHead(404);
                 res.end(`No such path: ${pathItem}`);
-                logger.info(`${req.method} ${req.url} [404] 0`);
+                logger.info(`${address} - ${req.method} ${req.url} [404] 0`);
                 return;
             }
         }
@@ -49,13 +51,13 @@ const requestListener = function (req, res) {
         else {
             res.writeHead(404);
             res.end(`No such path: ${pathItem}`);
-            logger.info(`${req.method} ${req.url} [404] 0`);
+            logger.info(`${address} - ${req.method} ${req.url} [404] 0`);
         }
     }
     catch(e) {
         res.writeHead(500)
         res.end(e.message);
-        logger.info(`${req.method} ${req.url} [500] 0`);
+        logger.info(`${address} - ${req.method} ${req.url} [500] 0`);
     }
 }
 
