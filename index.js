@@ -123,10 +123,10 @@ function doDir(path,pathItem,req,res) {
     }
 
     let content = '<html><body>';
-    let baseUrl = base ? base : "http://${host}:${port}/";
+    let baseUrl = base ? base : "http://${host}:${port}";
 
     lsDir.forEach( (entry) => {
-        content += `<a href="${base}/${pathItem}${entry}">${entry}</a><br>`
+        content += `<a href="${baseUrl}/${pathItem}${entry}">${entry}</a><br>`
     });
     content += '</body></html>';
     res.writeHead(200);
