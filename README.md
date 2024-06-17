@@ -22,7 +22,8 @@ const { start_server } = require('mellon-server');
 start_server({
     host: 'localhost',
     port: 8000,
-    public: './public'
+    public: './public',
+    base: 'https://my.base.url/service',
     registry: [
        { path: 'demo' , do: doDemo },
        { path: 'test/.*', do: './hander/demo.js'}
