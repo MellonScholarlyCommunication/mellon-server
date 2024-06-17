@@ -46,7 +46,7 @@ const requestListener = function (req, res) {
         if (stat && stat.isFile()) {
             doFile(`${public_dir}/${pathItem}`,req,res);
         }
-        else if (pathItem.endsWith('/') && stat && stat.isDirectory()) {
+        else if ((pathItem === "" || pathItem.endsWith('/')) && stat && stat.isDirectory()) {
             doDir(`${public_dir}/${pathItem}`,pathItem,req,res); 
         }
         else {
@@ -126,7 +126,17 @@ function doDir(path,pathItem,req,res) {
     let baseUrl = base ? base : `http://${host}:${port}`;
 
     lsDir.forEach( (entry) => {
-        content += `<a href="${baseUrl}/${pathItem}${entry}">${entry}</a><br>`
+        const stat = fs.lstatSync(`${path}${entry}`);
+
+        if (stat && stat.isFile()) {
+            content += `<a href="${baseUrl}/${pathItem}${entry}">${entry}</a><br>`
+        }
+        else if (stat && stat.isDirectory()) {
+            content += `<a href="${baseUrl}/${pathItem}${entry}/">${entry}/</a><br>`
+        }
+        else {
+            // Do nothing
+        }
     });
     content += '</body></html>';
     res.writeHead(200);
