@@ -1,6 +1,6 @@
 {
   "name": "mellon-server",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A small hackable HTTP server",
   "main": "index.js",
   "repository": "https://github.com/MellonScholarlyCommunication/mellon-server",
