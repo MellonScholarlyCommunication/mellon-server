@@ -8,7 +8,13 @@ A small experimental hackable HTTP server.
 npm install mellon-server
 ```
 
-## Example
+## Run server
+
+```
+npx mellon-server
+```
+
+## Hackable
 
 ```
 const { start_server } = require('mellon-server');

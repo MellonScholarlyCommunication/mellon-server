@@ -6,6 +6,7 @@ const fs = require('fs');
 program
   .option('--host <host>','host','localhost')
   .option('--port <port>','port',8000)
+  .option('--base <baseUrl>')
   .option('--public <public>','public','public')
   .option('--registry <registry>','registry',null);
 

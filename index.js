@@ -4,6 +4,7 @@ const fs = require('fs');
 let host = 'localhost';
 let port = 8000;
 let public_dir = './public';
+let base = undefined;
 let registry = [] ;
 
 const log4js = require('log4js');
@@ -122,8 +123,10 @@ function doDir(path,pathItem,req,res) {
     }
 
     let content = '<html><body>';
+    let baseUrl = base ? base : "http://${host}:${port}/";
+
     lsDir.forEach( (entry) => {
-        content += `<a href="http://${host}:${port}/${pathItem}/${entry}">${entry}</a><br>`
+        content += `<a href="${base}/${pathItem}${entry}">${entry}</a><br>`
     });
     content += '</body></html>';
     res.writeHead(200);
@@ -134,6 +137,7 @@ function doDir(path,pathItem,req,res) {
 function start_server(options) {
     port = options['port'] ?? 8000 ;
     host = options['host'] ?? localhost ;
+    base = options['base'];
     public_dir = options['public'] ?? './public'; 
 
     if (options['registry']) {
