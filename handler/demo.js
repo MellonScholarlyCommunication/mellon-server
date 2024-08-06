@@ -1,6 +1,6 @@
-function handle(req,res) {
+function handle(req,res,options) {
     res.writeHead(200);
-    res.end('Yeah! :)');
+    res.end(`Yeah! :) ${JSON.stringify(options)}`);
 }
 
 module.exports = { handle };

@@ -8,7 +8,8 @@
   "license": "MIT",
   "bin": "./bin/mellon-server.js",
   "scripts": {
-    "server": "npx mellon-server"
+    "server": "npx mellon-server",
+    "server-registry": "npx mellon-server --registry registry-example.json"
   },
   "dependencies": {
     "commander": "^12.0.0",

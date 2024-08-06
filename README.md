@@ -26,11 +26,11 @@ start_server({
     base: 'https://my.base.url/service',
     registry: [
        { path: 'demo' , do: doDemo },
-       { path: 'test/.*', do: './hander/demo.js'}
+       { path: 'test/.*', do: './hander/demo.js', with: { myOption: 123 }}
     ]
 });
 
-function doDemo(req,res) {
+function doDemo(req,res,opts) {
     res.writeHead(200);
     res.end('Hello World!');   
 }

@@ -24,10 +24,10 @@ const requestListener = function (req, res) {
     const address = req.socket.address()['address'];
 
     try {
-        const reg = registryEntry(pathItem);
+        const entry = registryEntry(pathItem);
 
-        if (reg) {
-            reg(req,res);
+        if (entry) {
+            entry['function'](req,res,entry['options']);
             logger.info(`${address} - ${req.method} ${req.url} [${res.statusCode}] 0`);
             return;
         }
@@ -68,17 +68,18 @@ function registryEntry(pathItem) {
             let regex = new RegExp('^' + registry[i]['path']);
         
             if (regex.test(pathItem)) {
-                const entry = registry[i]['do'];
+                const entry   = registry[i]['do'];
+                const options = registry[i]['with'];
 
                 if (typeof entry === 'function') {
-                    return entry;
+                    return { function: entry , options: options };
                 }
                 else {
                     logger.info(`loading entry ${entry}`);
                     delete require.cache[entry];
                     const func = require(entry).handle;
                     registry[i]['do'] = func;
-                    return func;
+                    return { function: func , options: options };
                 }
             }
         }
