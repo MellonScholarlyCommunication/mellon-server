@@ -1,5 +1,6 @@
 const http = require('http');
 const fs = require('fs');
+const fsPath = require('path');
 
 let host = 'localhost';
 let port = 8000;
@@ -75,9 +76,12 @@ function registryEntry(pathItem) {
                     return { function: entry , options: options };
                 }
                 else {
-                    logger.info(`loading entry ${entry}`);
-                    delete require.cache[entry];
-                    const func = require(entry).handle;
+                    const abs_handler = fsPath.resolve(
+                        entry.replaceAll(/@handler/g,fsPath.resolve(__dirname,'..','handler'))
+                    );
+                    logger.info(`loading entry ${abs_handler}`);
+                    delete require.cache[abs_handler];
+                    const func = require(abs_handler).handle;
                     registry[i]['do'] = func;
                     return { function: func , options: options };
                 }
