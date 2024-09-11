@@ -3,7 +3,7 @@ const { program } = require('commander');
 const { start_server } = require('../index.js');
 const fs = require('fs');
 
-require('dotenv').config({path:`${__dirname}/../.env`});
+require('dotenv').config();
 
 program
   .option('--host <host>','host','localhost')
