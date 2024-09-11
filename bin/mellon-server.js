@@ -3,6 +3,8 @@ const { program } = require('commander');
 const { start_server } = require('../index.js');
 const fs = require('fs');
 
+require('dotenv').config({path:`${__dirname}/../.env`});
+
 program
   .option('--host <host>','host','localhost')
   .option('--port <port>','port',8000)
